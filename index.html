@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Valorant Tracker</title>
+</head>
+<body>
+  <h1>Valorant Tracker</h1>
+
+  <input id="name" placeholder="Pseudo Riot ID">
+  <button onclick="search()">Rechercher</button>
+
+  <p id="result"></p>
+
+  <script>
+    function search() {
+      let name = document.getElementById("name").value;
+
+      document.getElementById("result").innerText =
+        "Recherche pour : " + name;
+    }
+  </script>
+</body>
+</html>
