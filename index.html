@@ -1,23 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Valorant Tracker</title>
+<meta charset="UTF-8">
+<title>Valorant Tracker</title>
+
+<style>
+body{
+    background:#0f1923;
+    color:white;
+    font-family:Arial,sans-serif;
+    text-align:center;
+    padding-top:80px;
+}
+
+h1{
+    font-size:50px;
+    margin-bottom:30px;
+}
+
+input{
+    padding:12px;
+    width:300px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+#card{
+    margin:40px auto;
+    width:350px;
+    background:#1a242f;
+    padding:20px;
+    border-radius:12px;
+}
+
+.stat{
+    margin:10px 0;
+}
+</style>
 </head>
+
 <body>
-  <h1>Valorant Tracker</h1>
 
-  <input id="name" placeholder="Pseudo Riot ID">
-  <button onclick="search()">Rechercher</button>
+<h1>🎯 Valorant Tracker</h1>
 
-  <p id="result"></p>
+<input id="name" placeholder="Pseudo Riot ID">
+<button onclick="search()">Rechercher</button>
 
-  <script>
-    function search() {
-      let name = document.getElementById("name").value;
+<div id="card">
+    <h2>Profil</h2>
+    <div class="stat">Rank : -</div>
+    <div class="stat">K/D : -</div>
+    <div class="stat">Winrate : -</div>
+</div>
 
-      document.getElementById("result").innerText =
-        "Recherche pour : " + name;
-    }
-  </script>
+<script>
+function search(){
+    let player = document.getElementById("name").value;
+
+    document.getElementById("card").innerHTML = `
+        <h2>${player}</h2>
+        <div class="stat">Rank : Gold 2</div>
+        <div class="stat">K/D : 1.24</div>
+        <div class="stat">Winrate : 55%</div>
+    `;
+}
+</script>
+
 </body>
 </html>
