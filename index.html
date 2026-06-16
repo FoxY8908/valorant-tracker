@@ -1,30 +1,99 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset="UTF-8">
+<title>Valorant Tracker</title>
+
+<style>
+body{
+    background:#0f1923;
+    color:white;
+    font-family:Arial,sans-serif;
+    text-align:center;
+    padding-top:80px;
+}
+
+h1{
+    font-size:50px;
+    margin-bottom:30px;
+}
+
+input{
+    padding:12px;
+    width:300px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+#card{
+    margin:40px auto;
+    width:350px;
+    background:#1a242f;
+    padding:20px;
+    border-radius:12px;
+}
+
+.stat{
+    margin:10px 0;
+}
+</style>
+</head>
+
 <body>
 
-<h2>Valorant API Test</h2>
+<input id="name" placeholder="Pseudo Riot ID">
+<button onclick="search()">Rechercher</button>
 
-<input id="name" placeholder="Pseudo (ex: Faker)">
-<input id="tag" placeholder="TAG (ex: EUW)">
-<button onclick="searchPlayer()">Rechercher</button>
-
-<pre id="result"></pre>
+<div id="card">
+    <h2>Profil</h2>
+    <div class="stat">Rank : -</div>
+    <div class="stat">K/D : -</div>
+    <div class="stat">Winrate : -</div>
+</div>
 
 <script>
+function search(){
+    let player = document.getElementById("name").value;
+
+    document.getElementById("card").innerHTML = `
+        <h2>${player}</h2>
+        <div class="stat">Rank : Gold 2</div>
+        <div class="stat">K/D : 1.24</div>
+        <div class="stat">Winrate : 55%</div>
+    `;
+}
+</script>
+
+</body>
+</html>
 async function searchPlayer() {
 
-  const name = document.getElementById("name").value;
-  const tag = document.getElementById("tag").value;
+  // récupère tes inputs (pseudo + tag)
+  const fullName = document.getElementById("name").value;
 
-  const API_KEY = "RGAPI-eb7e7f4c-7652-4742-bd3d-7a5cd671b60b";
+  // si ton input est du style "Pseudo#TAG"
+  const parts = fullName.split("#");
 
-  // Endpoint Valorant Account API
-  const url = `https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${name}/${tag}`;
+  const gameName = parts[0];
+  const tagLine = parts[1];
+
+  const API_KEY = "RGAPI-6a977d7f-1ea3-4eb4-89fa-2276bb57dfb9";
+
+  const url = `https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`;
 
   try {
     const res = await fetch(url, {
       headers: {
-        "X-Riot-Token": RGAPI-eb7e7f4c-7652-4742-bd3d-7a5cd671b60b
+        "X-Riot-Token": RGAPI-6a977d7f-1ea3-4eb4-89fa-2276bb57dfb9
       }
     });
 
@@ -38,7 +107,3 @@ async function searchPlayer() {
       "Erreur: " + err;
   }
 }
-</script>
-
-</body>
-</html>
