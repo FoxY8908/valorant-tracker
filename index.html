@@ -76,26 +76,30 @@ function search(){
 </body>
 </html>
 async function searchPlayer() {
-
-  // récupère tes inputs (pseudo + tag)
   const fullName = document.getElementById("name").value;
 
-  // si ton input est du style "Pseudo#TAG"
-  const parts = fullName.split("#");
+  if (!fullName.includes("#")) {
+    document.getElementById("result").textContent =
+      "Format obligatoire : Pseudo#TAG";
+    return;
+  }
 
-  const gameName = parts[0];
-  const tagLine = parts[1];
+  const [gameName, tagLine] = fullName.split("#");
 
   const API_KEY = "RGAPI-6a977d7f-1ea3-4eb4-89fa-2276bb57dfb9";
 
-  const url = `https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`;
+  const url = `https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(gameName)}/${encodeURIComponent(tagLine)}`;
 
   try {
     const res = await fetch(url, {
       headers: {
-        "X-Riot-Token": RGAPI-6a977d7f-1ea3-4eb4-89fa-2276bb57dfb9
+        "X-Riot-Token": API_KEY
       }
     });
+
+    if (!res.ok) {
+      throw new Error(`Erreur API: ${res.status} ${res.statusText}`);
+    }
 
     const data = await res.json();
 
@@ -104,6 +108,6 @@ async function searchPlayer() {
 
   } catch (err) {
     document.getElementById("result").textContent =
-      "Erreur: " + err;
+      "Erreur: " + err.message;
   }
 }
